@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url>
+<loc>https://bensnyde.github.io/bensnyde.github.io/posts/python-extensions/</loc>
+<lastmod>2020-12-31T20:03:44-06:00</lastmod>
+</url>
+<url>
+<loc>https://bensnyde.github.io/bensnyde.github.io/tabs/categories/</loc>
+<lastmod>2020-12-31T20:04:11-06:00</lastmod>
+</url>
+<url>
+<loc>https://bensnyde.github.io/bensnyde.github.io/tabs/tags/</loc>
+<lastmod>2020-12-31T20:04:11-06:00</lastmod>
+</url>
+<url>
+<loc>https://bensnyde.github.io/bensnyde.github.io/tabs/archives/</loc>
+<lastmod>2020-12-31T20:04:11-06:00</lastmod>
+</url>
+<url>
+<loc>https://bensnyde.github.io/bensnyde.github.io/tabs/about/</loc>
+<lastmod>2020-12-31T20:04:11-06:00</lastmod>
+</url>
+<url>
+<loc>https://bensnyde.github.io/bensnyde.github.io/</loc>
+</url>
+<url>
+<loc>https://bensnyde.github.io/bensnyde.github.io/tags/django/</loc>
+</url>
+<url>
+<loc>https://bensnyde.github.io/bensnyde.github.io/tags/python/</loc>
+</url>
+<url>
+<loc>https://bensnyde.github.io/bensnyde.github.io/categories/reference/</loc>
+</url>
+</urlset>
