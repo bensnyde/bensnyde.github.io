@@ -1,5 +1,5 @@
 ---
-title: Useful Python Extensions
+title: Useful Django Extensions
 author: Benton Snyder
 date: 2020-12-30 07:40:00 +0600
 categories: [Reference]
