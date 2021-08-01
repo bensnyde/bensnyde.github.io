@@ -7,6 +7,9 @@ theme: jekyll-theme-chirpy
 # change below value to '/projectname'.
 baseurl: ''
 
+# Change to your timezone › http://www.timezoneconverter.com/cgi-bin/findzone/findzone
+timezone: America/Chicago
+
 # The language of the site layout › http://www.lingoes.net/en/translator/langcode.htm
 # Go to folder '_data/locales' to check the available language options
 lang: en
@@ -15,9 +18,6 @@ lang: en
 # We can specify a language different from the layout of the content.
 # If it is not assigned, the site will use the value of 'lang' instead.
 content_lang: ''
-
-# Change to your timezone › http://www.timezoneconverter.com/cgi-bin/findzone/findzone
-timezone: Asia/Shanghai
 
 # jekyll-seo-tag settings › https://github.com/jekyll/jekyll-seo-tag/blob/master/docs/usage.md
 # --------------------------
@@ -53,16 +53,7 @@ social:
     # - https://www.facebook.com/username
     # - https://www.linkedin.com/pub/benton-snyder/37/491/5a1
 
-google_site_verification: google_meta_tag_verification # change to your verification string
-
-# ↑ --------------------------
-
-# Only if your site type is GitHub Project sites and doesn't have a custom domain,
-# change below value to '/projectname'.
-baseurl: ''
-
-# Change to your timezone › http://www.timezoneconverter.com/cgi-bin/findzone/findzone
-timezone: America/Chicago
+google_site_verification: h3OV2pDNbuiFfUir-EvGCMmH9isPBcMw27lCL0Ag0VU # change to your verification string
 
 google_analytics:
   id: 'UA-43423047-5'          # Fill with your Google Analytics ID
