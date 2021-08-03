@@ -9,8 +9,9 @@ mermaid: false
 ---
 
 ```
-kubectl create secret generic smtp-password --from-literal=password=[password]
-kubectl create secret generic gitlab-initial-root-password --from-literal=password=[password]
+kubectl create namespace gitlab
+kubectl create secret generic smtp-password --from-literal=password=[password] -n gitlab
+kubectl create secret generic gitlab-initial-root-password --from-literal=password=[password] -n gitlab
 
 helm repo add gitlab https://charts.gitlab.io/
 helm repo update
@@ -32,5 +33,6 @@ helm upgrade --install gitlab gitlab/gitlab \
     --set global.email.from=[email_adddress] \
     --set gitlab-runner.runners.privileged=true \
     --timeout=20m \
+    -n gitlab \
     --debug
 ```
