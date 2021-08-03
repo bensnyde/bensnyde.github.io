@@ -8,7 +8,13 @@ math: false
 mermaid: false
 ---
 
-```
+## Installation 
+
+```shell
+./minikube-linux-amd64-v1-22-0 start --kubernetes-version=v1.21.2
+
+minikube addons enable ingress
+
 kubectl create namespace gitlab
 kubectl create secret generic smtp-password --from-literal=password=[password] -n gitlab
 kubectl create secret generic gitlab-initial-root-password --from-literal=password=[password] -n gitlab
@@ -35,4 +41,21 @@ helm upgrade --install gitlab gitlab/gitlab \
     --timeout=20m \
     -n gitlab \
     --debug
+```
+
+## Troubleshooting
+
+Ran into the below issue:
+
+```shell
+client.go:230: [debug] Created a new Job called "gitlab-minio-create-buckets-3" in gitlab
+upgrade.go:369: [debug] warning: Upgrade "gitlab" failed: failed to create resource: Internal error occurred: failed calling webhook "validate.nginx.ingress.kubernetes.io": Post "https://ingress-nginx-controller-admission.ingress-nginx.svc:443/networking/v1beta1/ingresses?timeout=30s": dial tcp 10.96.8.240:443: connect: connection refused
+Error: UPGRADE FAILED: failed to create resource: Internal error occurred: failed calling webhook "validate.nginx.ingress.kubernetes.io": Post "https://ingress-nginx-controller-admission.ingress-nginx.svc:443/networking/v1beta1/ingresses?timeout=30s": dial tcp 10.96.8.240:443: connect: connection refused
+helm.go:88: [debug] Internal error occurred: failed calling webhook "validate.nginx.ingress.kubernetes.io": Post "https://ingress-nginx-controller-admission.ingress-nginx.svc:443/networking/v1beta1/ingresses?timeout=30s": dial tcp 10.96.8.240:443: connect: connection refused
+failed to create resource
+```
+
+Resolved by [deleting the ValidatingWebhookConfiguration](https://stackoverflow.com/a/62044090/1763994)
+```
+kubectl delete -A ValidatingWebhookConfiguration ingress-nginx-admission
 ```
