@@ -99,8 +99,12 @@ Install Gitlab
 ```shell
 kubectl create namespace gitlab
 
-kubectl create secret generic smtp-password --from-literal=password=${SMTP_PASS} -n gitlab
-kubectl create secret generic gitlab-gitlab-initial-root-password --from-literal=password=${GITLAB_ROOT_PASS} -n gitlab
+kubectl create secret generic smtp-password \
+    -n gitlab \
+    --from-literal=password=${SMTP_PASS}
+kubectl create secret generic gitlab-gitlab-initial-root-password \
+    -n gitlab \
+    --from-literal=password=${GITLAB_ROOT_PASS}
 
 helm repo add gitlab https://charts.gitlab.io/
 helm repo update
