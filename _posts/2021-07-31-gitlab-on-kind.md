@@ -8,17 +8,19 @@ math: false
 mermaid: false
 ---
 
-Required environment variables:
+Set environment variables:
 
-- K8S_API_IP: Kubernetes API listen address, must be accessible to Gitlab
-- GITLAB_EXT_IP: Gitlab external IP address
-- GITLAB_DOMAIN: Gitlab domain 
-- GITLAB_ROOT_PASS: Gitlab root password
-- GITLAB_ROOT_EMAIL: Gitlab outgoing email sender
-- SMTP_PASS: Outbound email password
-- SMTP_USER: Outbound email user
-- SMTP_HOST: Outbound email host
-- SMTP_PORT: Outbound email port
+```shell
+export K8S_API_IP="Kubernetes API listen address, must be accessible to Gitlab"
+export GITLAB_EXT_IP="Gitlab external IP address"
+export GITLAB_DOMAIN="Gitlab base domain"
+export GITLAB_ROOT_PASS="Gitlab root user pass"
+export GITLAB_ROOT_EMAIL="Gitlab root user email"
+export SMTP_PASS="SMTP Pass"
+export SMTP_USER="SMTP User"
+export SMTP_HOST="SMTP Host"
+export SMTP_PORT="SMTP Port"
+```
 
 ## Create the Kind cluster
 
