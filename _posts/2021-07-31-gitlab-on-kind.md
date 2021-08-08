@@ -1,5 +1,5 @@
 ---
-title: Deploying Gitlab CE on Kind
+title: Deploying Gitlab CE to a local Kind Kubernetes cluster
 author: Benton Snyder
 date: 2021-07-31 16:22:00 +0600
 categories: [Reference]
@@ -10,7 +10,15 @@ mermaid: false
 
 ## Create the Kind cluster
 
-Paste the following into create_cluser.sh:
+The script below:
+
+- Creates a cluster
+- Creates a Registry 
+- Exposes 80/443 through the host
+
+Note, only the cluster is necessary. See https://kind.sigs.k8s.io/ for more information. 
+
+create_cluser.sh:
 
 ```shell
 #!/bin/sh
@@ -78,6 +86,12 @@ Execute
 
 ```shell
 ./create_cluster.sh
+```
+
+Install Helm 
+
+```shell
+curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
 ```
 
 Install Gitlab
