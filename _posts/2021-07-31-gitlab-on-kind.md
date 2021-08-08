@@ -8,39 +8,31 @@ math: false
 mermaid: false
 ---
 
+Required environment variables:
+
+- K8S_API_IP: Kubernetes API listen address, must be accessible to Gitlab
+- GITLAB_EXT_IP: Gitlab external IP address
+- GITLAB_DOMAIN: Gitlab domain 
+- GITLAB_ROOT_PASS: Gitlab root password
+- GITLAB_ROOT_EMAIL: Gitlab outgoing email sender
+- SMTP_PASS: Outbound email password
+- SMTP_USER: Outbound email user
+- SMTP_HOST: Outbound email host
+- SMTP_PORT: Outbound email port
+
 ## Create the Kind cluster
 
-The script below:
-
-- Creates a cluster
-- Creates a Registry 
-- Exposes 80/443 through the host
-
-Note, only the cluster is necessary. See https://kind.sigs.k8s.io/ for more information. 
-
-create_cluser.sh:
+Note the Kubernetes API must be accessible to Gitlab to use runners. 
 
 ```shell
-#!/bin/sh
-set -o errexit
-
-# create registry container unless it already exists
-reg_name='kind-registry'
-reg_port='5000'
-running="$(docker inspect -f '{{.State.Running}}' "${reg_name}" 2>/dev/null || true)"
-if [ "${running}" != 'true' ]; then
-  docker run \
-    -d --restart=always -p "127.0.0.1:${reg_port}:5000" --name "${reg_name}" \
-    registry:2
-fi
-
-# create a cluster with the local registry enabled in containerd
 cat <<EOF | kind create cluster --config=-
 kind: Cluster
 apiVersion: kind.x-k8s.io/v1alpha4
+networking:
+  apiServerAddress: "${K8S_API_IP}"
+  apiServerPort: 6443
 nodes:
 - role: control-plane
-  # port forward 80 on the host to 80 on this node
   extraPortMappings:
   - containerPort: 80
     hostPort: 80
@@ -48,44 +40,7 @@ nodes:
   - containerPort: 443
     hostPort: 443
     protocol: TCP
-  - containerPort: 9000
-    hostPort: 5555
-    protocol: TCP
-containerdConfigPatches:
-- |-
-  [plugins."io.containerd.grpc.v1.cri".registry.mirrors."localhost:${reg_port}"]
-    endpoint = ["http://${reg_name}:${reg_port}"]
 EOF
-
-# connect the registry to the cluster network
-# (the network may already be connected)
-docker network connect "kind" "${reg_name}" || true
-
-# Document the local registry
-# https://github.com/kubernetes/enhancements/tree/master/keps/sig-cluster-lifecycle/generic/1755-communicating-a-local-registry
-cat <<EOF | kubectl apply -f -
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: local-registry-hosting
-  namespace: kube-public
-data:
-  localRegistryHosting.v1: |
-    host: "localhost:${reg_port}"
-    help: "https://kind.sigs.k8s.io/docs/user/local-registry/"
-EOF
-```
-
-Set to executable
-
-```shell
-chmod +x create_cluster.sh
-```
-
-Execute
-
-```shell
-./create_cluster.sh
 ```
 
 Install Helm 
@@ -115,9 +70,9 @@ helm upgrade --install gitlab gitlab/gitlab \
     --set certmanager-issuer.email=${GITLAB_ROOT_EMAIL} \
     --set postgresql.image.tag=12.7.0 \
     --set global.smtp.enabled=true \
-    --set global.smtp.address=smtp.sendgrid.net \
-    --set global.smtp.port=465 \
-    --set global.smtp.user_name=apikey \
+    --set global.smtp.address=${SMTP_HOST} \
+    --set global.smtp.port=${SMTP_PORT} \
+    --set global.smtp.user_name=${SMTP_USER} \
     --set global.smtp.password.secret=smtp-password \
     --set global.email.from=${GITLAB_ROOT_EMAIL} \
     --set gitlab-runner.runners.privileged=true \
