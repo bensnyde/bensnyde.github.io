@@ -23,7 +23,7 @@ content_lang: ''
 # --------------------------
 title: Benton Snyder                          # the main title
 
-tagline: Engineer, not too much, mostly Python.  # it will display as the sub-title
+tagline: Engineer. Not too much. Mostly Python.  # it will display as the sub-title
 
 description: >-                        # used by seo meta and the atom feed
   A technology blog with a focus 
